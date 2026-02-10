@@ -14,12 +14,14 @@ A modern web application that generates AI-powered essays and automatically para
 ## Tech Stack
 
 ### Frontend
+
 - React 18 + TypeScript
 - Vite
 - Tailwind CSS
 - Axios
 
 ### Backend
+
 - Node.js + Express
 - TypeScript
 - Prisma + SQLite (optional storage)
@@ -51,6 +53,7 @@ essaygen-paraphrase/
 ## Setup Instructions
 
 ### Prerequisites
+
 - Node.js 18+ and npm
 - Anthropic API key (for Claude)
 
@@ -69,6 +72,7 @@ npm install
 ### 2. Environment Configuration
 
 #### Server (.env)
+
 Create `server/.env`:
 
 ```env
@@ -88,6 +92,7 @@ REQUIRE_AUTH=false
 ```
 
 #### Client (.env)
+
 Create `client/.env`:
 
 ```env
@@ -99,12 +104,14 @@ VITE_API_URL=http://localhost:3001
 #### Development Mode
 
 **Terminal 1 - Backend:**
+
 ```bash
 cd server
 npm run dev
 ```
 
 **Terminal 2 - Frontend:**
+
 ```bash
 cd client
 npm run dev
@@ -130,9 +137,11 @@ npm start
 ## API Endpoints
 
 ### POST /api/generate-and-paraphrase
+
 Generate essay and paraphrase it in one call (recommended).
 
 **Request:**
+
 ```json
 {
   "prompt": "The impact of AI on society",
@@ -146,6 +155,7 @@ Generate essay and paraphrase it in one call (recommended).
 ```
 
 **Response:**
+
 ```json
 {
   "original": {
@@ -162,9 +172,11 @@ Generate essay and paraphrase it in one call (recommended).
 ```
 
 ### POST /api/generate
+
 Generate essay only.
 
 ### POST /api/paraphrase
+
 Paraphrase existing text.
 
 ## Paraphrase Modes
@@ -179,6 +191,7 @@ Strength: 1-10 (1 = minimal changes, 10 = maximum paraphrasing)
 ## Features
 
 ### Essay Generation
+
 - Topic/prompt input
 - Essay types: Argumentative, Narrative, Expository
 - Tone options: Formal, Casual, Academic
@@ -186,12 +199,14 @@ Strength: 1-10 (1 = minimal changes, 10 = maximum paraphrasing)
 - Optional outline guidance
 
 ### Paraphrasing
+
 - Third-party API integration with automatic fallback
 - Multiple paraphrase modes
 - Adjustable strength (1-10)
 - Preserves meaning while changing structure
 
 ### UI Features
+
 - Side-by-side comparison
 - Copy to clipboard
 - Download as .txt
@@ -209,6 +224,7 @@ Strength: 1-10 (1 = minimal changes, 10 = maximum paraphrasing)
 ## Disclaimer
 
 This tool generates AI-powered content. Always:
+
 - Verify facts and citations
 - Review and edit output
 - Use as a draft, not final work
@@ -231,16 +247,19 @@ Add your provider in `server/src/providers/`
 ### Troubleshooting
 
 **Port already in use:**
+
 ```bash
 # Change PORT in server/.env
 PORT=3002
 ```
 
 **API key errors:**
+
 - Verify ANTHROPIC_API_KEY is set correctly
 - Check API key permissions
 
 **Build errors:**
+
 ```bash
 # Clear node_modules and reinstall
 rm -rf node_modules package-lock.json
@@ -250,4 +269,3 @@ npm install
 ## License
 
 MIT
-# essayGen
