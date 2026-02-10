@@ -26,12 +26,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL || 'https://essay-gen-rbj7.vercel.app',
-    credentials: true,
-  }),
-);
+app.use(cors()); // Allow all origins
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
