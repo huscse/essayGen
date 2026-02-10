@@ -5,7 +5,13 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import apiRouter from './routes/api';
 import { apiLimiter } from './middleware/rateLimiter';
-import { register, login, logout, getCurrentUser, requireAuth } from './middleware/auth';
+import {
+  register,
+  login,
+  logout,
+  getCurrentUser,
+  requireAuth,
+} from './middleware/auth';
 
 // Load environment variables
 dotenv.config();
@@ -20,10 +26,12 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || 'https://essay-gen-rbj7.vercel.app',
+    credentials: true,
+  }),
+);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -38,9 +46,9 @@ if (process.env.REQUIRE_AUTH === 'true') {
       cookie: {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        maxAge: 24 * 60 * 60 * 1000 // 24 hours
-      }
-    })
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      },
+    }),
   );
 }
 
@@ -71,26 +79,41 @@ app.get('/', (req, res) => {
       health: 'GET /api/health',
       generate: 'POST /api/generate',
       paraphrase: 'POST /api/paraphrase',
-      generateAndParaphrase: 'POST /api/generate-and-paraphrase'
-    }
+      generateAndParaphrase: 'POST /api/generate-and-paraphrase',
+    },
   });
 });
 
 // Error handling middleware
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.error('Unhandled error:', err);
-  res.status(500).json({
-    error: 'Internal server error',
-    details: process.env.NODE_ENV === 'development' ? err.message : undefined
-  });
-});
+app.use(
+  (
+    err: Error,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+  ) => {
+    console.error('Unhandled error:', err);
+    res.status(500).json({
+      error: 'Internal server error',
+      details: process.env.NODE_ENV === 'development' ? err.message : undefined,
+    });
+  },
+);
 
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🔐 Auth required: ${process.env.REQUIRE_AUTH === 'true' ? 'Yes' : 'No'}`);
-  console.log(`🔄 Third-party paraphrase API: ${process.env.PARAPHRASE_API_BASE_URL ? 'Configured' : 'Not configured (using LLM fallback)'}`);
+  console.log(
+    `🔐 Auth required: ${process.env.REQUIRE_AUTH === 'true' ? 'Yes' : 'No'}`,
+  );
+  console.log(
+    `🔄 Third-party paraphrase API: ${
+      process.env.PARAPHRASE_API_BASE_URL
+        ? 'Configured'
+        : 'Not configured (using LLM fallback)'
+    }`,
+  );
 });
 
 export default app;
