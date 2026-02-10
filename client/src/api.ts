@@ -4,14 +4,16 @@ import { EssayFormData, GenerateAndParaphraseResponse } from './types';
 const API_URL =
   typeof import.meta.env.VITE_API_URL === 'string'
     ? import.meta.env.VITE_API_URL
-    : (typeof window !== 'undefined' ? window.location.origin : undefined);
+    : typeof window !== 'undefined'
+    ? window.location.origin
+    : undefined;
 
 const api = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true,
+  withCredentials: false, // Changed from true
 });
 
 export async function generateAndParaphrase(
