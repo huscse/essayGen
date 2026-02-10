@@ -1,5 +1,5 @@
 import React from 'react';
-import { EssayFormData, EssayType, Tone, ParaphraseMode } from '../types';
+import { EssayFormData } from '../types';
 
 interface EssayFormProps {
   formData: EssayFormData;
@@ -8,11 +8,13 @@ interface EssayFormProps {
   isLoading: boolean;
 }
 
-export function EssayForm({ formData, onChange, onSubmit, isLoading }: EssayFormProps) {
-  const handleChange = (
-    field: keyof EssayFormData,
-    value: string | number
-  ) => {
+export function EssayForm({
+  formData,
+  onChange,
+  onSubmit,
+  isLoading,
+}: EssayFormProps) {
+  const handleChange = (field: keyof EssayFormData, value: string | number) => {
     onChange({
       ...formData,
       [field]: value,
@@ -22,7 +24,10 @@ export function EssayForm({ formData, onChange, onSubmit, isLoading }: EssayForm
   return (
     <form onSubmit={onSubmit} className="space-y-6">
       <div>
-        <label htmlFor="prompt" className="block text-sm font-medium text-gray-700 mb-2">
+        <label
+          htmlFor="prompt"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
           Topic / Prompt *
         </label>
         <textarea
@@ -39,7 +44,10 @@ export function EssayForm({ formData, onChange, onSubmit, isLoading }: EssayForm
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="type"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
             Essay Type *
           </label>
           <select
@@ -57,7 +65,10 @@ export function EssayForm({ formData, onChange, onSubmit, isLoading }: EssayForm
         </div>
 
         <div>
-          <label htmlFor="tone" className="block text-sm font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="tone"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
             Tone *
           </label>
           <select
@@ -76,7 +87,10 @@ export function EssayForm({ formData, onChange, onSubmit, isLoading }: EssayForm
       </div>
 
       <div>
-        <label htmlFor="wordCount" className="block text-sm font-medium text-gray-700 mb-2">
+        <label
+          htmlFor="wordCount"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
           Word Count: {formData.wordCount}
         </label>
         <input
@@ -97,7 +111,10 @@ export function EssayForm({ formData, onChange, onSubmit, isLoading }: EssayForm
       </div>
 
       <div>
-        <label htmlFor="outline" className="block text-sm font-medium text-gray-700 mb-2">
+        <label
+          htmlFor="outline"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
           Outline (Optional)
         </label>
         <textarea
@@ -113,9 +130,12 @@ export function EssayForm({ formData, onChange, onSubmit, isLoading }: EssayForm
 
       <div className="border-t pt-6">
         <h3 className="text-lg font-semibold mb-4">Paraphrase Settings</h3>
-        
+
         <div className="mb-4">
-          <label htmlFor="paraphraseMode" className="block text-sm font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="paraphraseMode"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
             Paraphrase Mode
           </label>
           <select
@@ -133,7 +153,10 @@ export function EssayForm({ formData, onChange, onSubmit, isLoading }: EssayForm
         </div>
 
         <div>
-          <label htmlFor="paraphraseStrength" className="block text-sm font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="paraphraseStrength"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
             Strength: {formData.paraphraseStrength}
           </label>
           <input
@@ -143,7 +166,9 @@ export function EssayForm({ formData, onChange, onSubmit, isLoading }: EssayForm
             max="10"
             step="1"
             value={formData.paraphraseStrength}
-            onChange={(e) => handleChange('paraphraseStrength', parseInt(e.target.value))}
+            onChange={(e) =>
+              handleChange('paraphraseStrength', parseInt(e.target.value))
+            }
             className="w-full"
             disabled={isLoading}
           />

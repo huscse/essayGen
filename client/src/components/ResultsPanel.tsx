@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { EssayResult } from '../types';
 
 interface ResultsPanelProps {
@@ -7,7 +7,7 @@ interface ResultsPanelProps {
   isLoading: boolean;
   onRegenerateParaphrase: () => void;
   onReset: () => void;
-  mode: 'generate' | 'rewrite';
+  mode: 'generate' | 'rewrite';  // ADD THIS LINE
 }
 
 type Tab = 'original' | 'paraphrased' | 'diff';
@@ -18,7 +18,7 @@ export function ResultsPanel({
   isLoading,
   onRegenerateParaphrase,
   onReset,
-  mode,
+  mode,  // ADD THIS LINE
 }: ResultsPanelProps) {
   const [activeTab, setActiveTab] = useState<Tab>('original');
   const [copySuccess, setCopySuccess] = useState<string | null>(null);
@@ -49,9 +49,7 @@ export function ResultsPanel({
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">
-            {mode === 'generate'
-              ? 'Generating your essay and paraphrasing...'
-              : 'Rewriting and paraphrasing...'}
+            {mode === 'generate' ? 'Generating your essay and paraphrasing...' : 'Rewriting and paraphrasing...'}
           </p>
           <p className="text-sm text-gray-500 mt-2">This may take a moment</p>
         </div>
@@ -78,9 +76,10 @@ export function ResultsPanel({
           </svg>
           <p className="text-lg">No results yet</p>
           <p className="text-sm mt-2">
-            {mode === 'generate'
+            {mode === 'generate' 
               ? 'Fill out the form and click "Generate" to create your essay'
-              : 'Paste your essay and click "Rewrite + Paraphrase"'}
+              : 'Paste your essay and click "Rewrite + Paraphrase"'
+            }
           </p>
         </div>
       </div>
@@ -108,18 +107,14 @@ export function ResultsPanel({
                   {copySuccess === 'original' ? '✓ Copied!' : 'Copy'}
                 </button>
                 <button
-                  onClick={() =>
-                    handleDownload(original.text, `essay-${mode}.txt`)
-                  }
+                  onClick={() => handleDownload(original.text, `essay-${mode}.txt`)}
                   className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
                 >
                   Download
                 </button>
               </div>
             </div>
-            <div className="prose max-w-none whitespace-pre-wrap">
-              {original.text}
-            </div>
+            <div className="prose max-w-none whitespace-pre-wrap">{original.text}</div>
           </div>
         );
 
@@ -146,18 +141,14 @@ export function ResultsPanel({
                   {copySuccess === 'paraphrased' ? '✓ Copied!' : 'Copy'}
                 </button>
                 <button
-                  onClick={() =>
-                    handleDownload(paraphrased.text, 'essay-paraphrased.txt')
-                  }
+                  onClick={() => handleDownload(paraphrased.text, 'essay-paraphrased.txt')}
                   className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
                 >
                   Download
                 </button>
               </div>
             </div>
-            <div className="prose max-w-none whitespace-pre-wrap">
-              {paraphrased.text}
-            </div>
+            <div className="prose max-w-none whitespace-pre-wrap">{paraphrased.text}</div>
           </div>
         );
 
@@ -165,17 +156,13 @@ export function ResultsPanel({
         return (
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <h4 className="font-semibold mb-2 text-sm text-gray-700">
-                {originalLabel}
-              </h4>
+              <h4 className="font-semibold mb-2 text-sm text-gray-700">{originalLabel}</h4>
               <div className="text-sm whitespace-pre-wrap bg-red-50 p-4 rounded border border-red-200 max-h-96 overflow-y-auto">
                 {original.text}
               </div>
             </div>
             <div>
-              <h4 className="font-semibold mb-2 text-sm text-gray-700">
-                Paraphrased
-              </h4>
+              <h4 className="font-semibold mb-2 text-sm text-gray-700">Paraphrased</h4>
               <div className="text-sm whitespace-pre-wrap bg-green-50 p-4 rounded border border-green-200 max-h-96 overflow-y-auto">
                 {paraphrased.text}
               </div>
@@ -187,16 +174,13 @@ export function ResultsPanel({
 
   return (
     <div className="h-full flex flex-col">
-      {/* Disclaimer */}
       <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
         <p className="text-sm text-yellow-800">
-          <strong>Disclaimer:</strong> This is AI-generated content. Always
-          verify facts, citations, and use as a draft. Follow academic integrity
-          guidelines.
+          <strong>Disclaimer:</strong> This is AI-generated content. Always verify facts, citations,
+          and use as a draft. Follow academic integrity guidelines.
         </p>
       </div>
 
-      {/* Tabs */}
       <div className="flex border-b mb-4">
         <button
           onClick={() => setActiveTab('original')}
@@ -237,7 +221,6 @@ export function ResultsPanel({
         </button>
       </div>
 
-      {/* Content */}
       <div className="flex-1 overflow-y-auto">{renderContent()}</div>
     </div>
   );
