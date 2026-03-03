@@ -1,6 +1,6 @@
 # EssayGen + Paraphrase
 
-A web application that generates AI-powered essays and automatically paraphrases them using third-party APIs with LLM fallback.
+A web app that generates AI-powered essays and automatically paraphrases them using third-party APIs with LLM fallback.
 
 ## Features
 
